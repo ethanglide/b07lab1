@@ -43,5 +43,9 @@ public class Driver {
 
 		Polynomial p3 = new Polynomial(new File("input.txt"));
 		p3.display();
+
+		p3.saveToFile("output.txt");
+		Polynomial p4 = new Polynomial(new File("output.txt"));
+		p4.display();
 	}
 }

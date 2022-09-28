@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 public class Polynomial {
 	double [] coefficients;
@@ -166,6 +168,33 @@ public class Polynomial {
 
 	public Boolean hasRoot(double x) {
 		return evaluate(x) == 0;
+	}
+
+	private String polynomialToString() {
+		String s = new String();
+		for (int i = 0; i < coefficients.length; i++) {
+			if (coefficients[i] > 0 && i != 0) s += "+";
+			s += coefficients[i];
+			if (exponents[i] != 0) s += "x" + exponents[i];
+		}
+		return s;
+	}
+	public void saveToFile(String filename) {
+		try {
+			File f = new File(filename);
+			if (f.createNewFile()) {
+				try (FileWriter output = new FileWriter(f);) {
+					output.write(this.polynomialToString());
+				}
+			}
+			else {
+				System.out.println("File " + filename + " already exists");
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void display() {
